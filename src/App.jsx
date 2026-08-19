@@ -296,7 +296,7 @@ export default function App() {
               {/* Decorative dynamic glow backdrop */}
               <div className={`absolute -inset-1 bg-gradient-to-r ${highlightCards[activeCardIndex].color} rounded-2xl blur opacity-25 group-hover:opacity-40 transition-all duration-700`}></div>
               
-              <div className={`relative w-64 h-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between items-center text-center shadow-2xl transition-all duration-300 transform ${
+              <div className={`relative w-64 h-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between items-center text-center shadow-xl shadow-slate-200/60 dark:shadow-slate-950/60 transition-all duration-300 transform ${
                 cardVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
               }`}>
                 {/* Active Card Icon */}
@@ -323,7 +323,7 @@ export default function App() {
             </span>
             <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 tracking-tight">Core Competencies & Stack</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 p-8 rounded-2xl backdrop-blur-sm shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 p-8 rounded-2xl backdrop-blur-sm shadow-md shadow-slate-200/50 dark:shadow-none">
             <div className="md:col-span-4 space-y-2">
               <h3 className="font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
                 <Terminal size={16} className="text-indigo-600 dark:text-indigo-400" /> Technology Landscape
@@ -378,7 +378,7 @@ export default function App() {
             {resumeData.accomplishments.map((acc, index) => (
               <div 
                 key={index}
-                className="p-5 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-900 hover:border-indigo-500/20 rounded-xl transition-all duration-300 flex items-start gap-4 shadow-sm"
+                className="p-5 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-900 hover:border-indigo-500/20 rounded-xl transition-all duration-300 flex items-start gap-4 shadow-md shadow-slate-100 dark:shadow-none"
               >
                 <span className="mt-1 inline-flex p-1.5 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded">
                   <Sparkles size={14} />
@@ -397,7 +397,7 @@ export default function App() {
             </span>
             <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 tracking-tight">Education</h2>
           </div>
-          <div className="p-6 bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
+          <div className="p-6 bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-md shadow-slate-200/50 dark:shadow-none">
             <div>
               <h3 className="text-lg font-bold text-slate-900 dark:text-slate-200">{resumeData.education.degree}</h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{resumeData.education.school}</p>

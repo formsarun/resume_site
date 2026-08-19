@@ -15,7 +15,7 @@ export default function ExperienceFlipCard({ experience }) {
         }`}
       >
         {/* FRONT: COMPANY DETAIL */}
-        <div className="absolute inset-0 w-full h-full backface-hidden bg-white/95 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-indigo-500/50 transition-all duration-300 shadow-xl backdrop-blur-sm">
+        <div className="absolute inset-0 w-full h-full backface-hidden bg-white/95 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-indigo-500/50 transition-all duration-300 shadow-md shadow-slate-200/50 dark:shadow-slate-950/50 backdrop-blur-sm">
           <div>
             <div className="flex items-start justify-between">
               <span className="inline-flex p-3 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-xl">
@@ -73,7 +73,7 @@ export default function ExperienceFlipCard({ experience }) {
         </div>
 
         {/* BACK: PROJECT DETAIL */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition-all duration-300 shadow-xl">
+        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition-all duration-300 shadow-md shadow-slate-200/50 dark:shadow-slate-950/50">
           <div className="overflow-y-auto pr-1 custom-scrollbar flex-grow">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
