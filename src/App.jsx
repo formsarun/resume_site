@@ -139,38 +139,42 @@ const resumeData = {
   }
 };
 
-export default function App() {
-  const highlightCards = [
-    {
-      title: "AI & Agentic Architect",
-      text: "Designing autonomous LLM agents to transpile legacy mainframes into Flink & Kafka stream topologies.",
-      Icon: Bot,
-      color: "from-indigo-500 to-emerald-500"
-    },
-    {
-      title: "High-Throughput Stream Specialist",
-      text: "Orchestrating distributed event streams processing billions of daily transactions with Flink & Kafka.",
-      Icon: Zap,
-      color: "from-indigo-500 to-sky-500"
-    },
-    {
-      title: "Cloud Native & GitOps Leader",
-      text: "Automating secure cloud migrations (GCP) and key rotations with zero-downtime GitOps pipelines.",
-      Icon: Cloud,
-      color: "from-emerald-500 to-indigo-500"
-    }
-  ];
+const highlightCards = [
+  {
+    title: "AI & Agentic Architect",
+    text: "Designing autonomous LLM agents to transpile legacy mainframes into Flink & Kafka stream topologies.",
+    Icon: Bot,
+    color: "from-indigo-500 to-emerald-500"
+  },
+  {
+    title: "High-Throughput Stream Specialist",
+    text: "Orchestrating distributed event streams processing billions of daily transactions with Flink & Kafka.",
+    Icon: Zap,
+    color: "from-indigo-500 to-sky-500"
+  },
+  {
+    title: "Cloud Native & GitOps Leader",
+    text: "Automating secure cloud migrations (GCP) and key rotations with zero-downtime GitOps pipelines.",
+    Icon: Cloud,
+    color: "from-emerald-500 to-indigo-500"
+  }
+];
 
+export default function App() {
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [cardVisible, setCardVisible] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCardVisible(false);
+      // Wait 300ms (matching CSS transition-duration-300) before changing content
       setTimeout(() => {
         setActiveCardIndex((prev) => (prev + 1) % highlightCards.length);
-        setCardVisible(true);
-      }, 300); // Wait for transition out
+        // Short buffer to guarantee DOM content swaps while completely invisible
+        setTimeout(() => {
+          setCardVisible(true);
+        }, 50);
+      }, 300);
     }, 3500);
     return () => clearInterval(timer);
   }, []);
