@@ -175,7 +175,7 @@ export default function App() {
           setCardVisible(true);
         }, 50);
       }, 300);
-    }, 3500);
+    }, 3000);
     return () => clearInterval(timer);
   }, []);
 
