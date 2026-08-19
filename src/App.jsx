@@ -295,7 +295,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="lg:col-span-4 flex justify-center lg:justify-end">
+          <div className="lg:col-span-4 flex flex-col items-center justify-center gap-4">
             <div className="relative group">
               {/* Decorative dynamic glow backdrop */}
               <div className={`absolute -inset-1 bg-gradient-to-r ${highlightCards[activeCardIndex].color} rounded-2xl blur opacity-25 group-hover:opacity-40 transition-all duration-700`}></div>
@@ -315,6 +315,30 @@ export default function App() {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* Minimal Dot Indicators */}
+            <div className="flex items-center justify-center gap-1.5 mt-1">
+              {highlightCards.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    if (i !== activeCardIndex) {
+                      setCardVisible(false);
+                      setTimeout(() => {
+                        setActiveCardIndex(i);
+                        setCardVisible(true);
+                      }, 250);
+                    }
+                  }}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === activeCardIndex 
+                      ? 'w-4 bg-indigo-600 dark:bg-indigo-400' 
+                      : 'w-1.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600'
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
             </div>
           </div>
         </section>
