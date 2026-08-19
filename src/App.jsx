@@ -15,7 +15,8 @@ import {
   Zap,
   Cloud,
   Sun,
-  Moon
+  Moon,
+  Home
 } from 'lucide-react';
 import ParticleCanvas from './components/ParticleCanvas';
 import ExperienceFlipCard from './components/ExperienceFlipCard';
@@ -227,7 +228,7 @@ export default function App() {
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-400">
-            <a href="#about" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">About</a>
+            <a href="#about" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center" aria-label="Home"><Home size={18} /></a>
             <a href="#skills" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Skills</a>
             <a href="#experience" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Experience</a>
             <a href="#accomplishments" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Accomplishments</a>
