@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Mail, 
   Phone, 
@@ -137,6 +137,41 @@ const resumeData = {
 };
 
 export default function App() {
+  const highlightCards = [
+    {
+      title: "AI & Agentic Architect",
+      text: "Designing autonomous LLM agents to transpile legacy mainframes into Flink & Kafka stream topologies.",
+      Icon: Bot,
+      color: "from-indigo-500 to-emerald-500"
+    },
+    {
+      title: "High-Throughput Stream Specialist",
+      text: "Orchestrating distributed event streams processing billions of daily transactions with Flink & Kafka.",
+      Icon: Zap,
+      color: "from-indigo-500 to-sky-500"
+    },
+    {
+      title: "Cloud Native & GitOps Leader",
+      text: "Automating secure cloud migrations (GCP) and key rotations with zero-downtime GitOps pipelines.",
+      Icon: Cloud,
+      color: "from-emerald-500 to-indigo-500"
+    }
+  ];
+
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [cardVisible, setCardVisible] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCardVisible(false);
+      setTimeout(() => {
+        setActiveCardIndex((prev) => (prev + 1) % highlightCards.length);
+        setCardVisible(true);
+      }, 300); // Wait for transition out
+    }, 3500);
+    return () => clearInterval(timer);
+  }, []);
+
   // Intersection Observer Fallback setup for Reveal Scroll animations
   useEffect(() => {
     const observerOptions = {
@@ -163,6 +198,8 @@ export default function App() {
 
     return () => observer.disconnect();
   }, []);
+
+  const CurrentIcon = highlightCards[activeCardIndex].Icon;
 
   return (
     <div className="relative min-h-screen z-10 font-sans selection:bg-indigo-600 selection:text-white">
@@ -233,50 +270,23 @@ export default function App() {
             </div>
           </div>
 
-          <div className="lg:col-span-4 flex flex-col gap-4 justify-center">
-            {/* AI & Agentic Architect Card */}
+          <div className="lg:col-span-4 flex justify-center lg:justify-end">
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-              <div className="relative bg-slate-900/95 border border-slate-800/80 rounded-xl p-4.5 flex items-start gap-3.5 shadow-xl backdrop-blur-sm">
-                <span className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg shrink-0">
-                  <Bot size={20} />
-                </span>
-                <div>
-                  <h3 className="font-bold text-slate-200 text-sm">AI & Agentic Architect</h3>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Designing autonomous LLM agents to transpile legacy mainframes into Flink & Kafka stream topologies.
-                  </p>
+              {/* Decorative dynamic glow backdrop */}
+              <div className={`absolute -inset-1 bg-gradient-to-r ${highlightCards[activeCardIndex].color} rounded-2xl blur opacity-25 group-hover:opacity-40 transition-all duration-700`}></div>
+              
+              <div className={`relative w-64 h-64 bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between items-center text-center shadow-2xl transition-all duration-300 transform ${
+                cardVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
+              }`}>
+                {/* Active Card Icon */}
+                <div className="p-4 bg-indigo-500/10 rounded-full text-indigo-400 mt-2 animate-bounce">
+                  <CurrentIcon size={40} />
                 </div>
-              </div>
-            </div>
-
-            {/* High-Throughput Stream Specialist Card */}
-            <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-              <div className="relative bg-slate-900/95 border border-slate-800/80 rounded-xl p-4.5 flex items-start gap-3.5 shadow-xl backdrop-blur-sm">
-                <span className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg shrink-0">
-                  <Zap size={20} />
-                </span>
-                <div>
-                  <h3 className="font-bold text-slate-200 text-sm">High-Throughput Stream Specialist</h3>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Orchestrating distributed event streams processing billions of daily transactions with Flink & Kafka.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Cloud Native & GitOps Leader Card */}
-            <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-              <div className="relative bg-slate-900/95 border border-slate-800/80 rounded-xl p-4.5 flex items-start gap-3.5 shadow-xl backdrop-blur-sm">
-                <span className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg shrink-0">
-                  <Cloud size={20} />
-                </span>
-                <div>
-                  <h3 className="font-bold text-slate-200 text-sm">Cloud Native & GitOps Leader</h3>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Automating secure cloud migrations (GCP) and key rotations with zero-downtime GitOps pipelines.
+                
+                <div className="space-y-1">
+                  <h3 className="font-bold text-slate-200 text-sm">{highlightCards[activeCardIndex].title}</h3>
+                  <p className="text-xs text-slate-400 mt-1.5 max-w-[200px] leading-relaxed">
+                    {highlightCards[activeCardIndex].text}
                   </p>
                 </div>
               </div>
