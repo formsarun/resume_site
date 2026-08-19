@@ -135,7 +135,8 @@ export default function ParticleCanvas() {
     // Render loop
     const animate = () => {
       // Semi-transparent clear to create faint trailing effect
-      ctx.fillStyle = 'rgba(2, 6, 23, 0.2)';
+      const isDark = document.documentElement.classList.contains('dark');
+      ctx.fillStyle = isDark ? 'rgba(2, 6, 23, 0.2)' : 'rgba(248, 250, 252, 0.2)';
       ctx.fillRect(0, 0, width, height);
 
       // Update and draw particles

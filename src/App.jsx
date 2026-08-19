@@ -13,7 +13,9 @@ import {
   TrendingUp,
   Bot,
   Zap,
-  Cloud
+  Cloud,
+  Sun,
+  Moon
 } from 'lucide-react';
 import ParticleCanvas from './components/ParticleCanvas';
 import ExperienceFlipCard from './components/ExperienceFlipCard';
@@ -172,6 +174,21 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
+  const [theme, setTheme] = useState('dark');
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   // Intersection Observer Fallback setup for Reveal Scroll animations
   useEffect(() => {
     const observerOptions = {
@@ -207,20 +224,23 @@ export default function App() {
       <ParticleCanvas />
 
       {/* Navigation Backdrop bar */}
-      <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-900">
+      <header className="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 bg-indigo-500 rounded-full animate-pulse"></span>
-            <span className="font-bold text-slate-200 tracking-wider">AP.DEV</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
-            <a href="#about" className="hover:text-indigo-400 transition-colors">About</a>
-            <a href="#skills" className="hover:text-indigo-400 transition-colors">Skills</a>
-            <a href="#experience" className="hover:text-indigo-400 transition-colors">Experience</a>
-            <a href="#accomplishments" className="hover:text-indigo-400 transition-colors">Accomplishments</a>
-            <a href="#education" className="hover:text-indigo-400 transition-colors">Education</a>
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-400">
+            <a href="#about" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">About</a>
+            <a href="#skills" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Skills</a>
+            <a href="#experience" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Experience</a>
+            <a href="#accomplishments" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Accomplishments</a>
+            <a href="#education" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Education</a>
           </nav>
-          <div>
+          <div className="flex items-center gap-3 ml-auto md:ml-0">
+            <button 
+              onClick={toggleTheme} 
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              aria-label="Toggle Theme"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             <a 
               href={`mailto:${resumeData.contact.email}`} 
               className="text-xs md:text-sm bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2 rounded-lg transition-all shadow-lg shadow-indigo-600/20 flex items-center gap-2"
@@ -237,34 +257,34 @@ export default function App() {
         {/* HERO SECTION */}
         <section id="about" className="reveal-card py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-xs font-semibold uppercase tracking-wider">
               <Sparkles size={12} /> Available for Leadership & Architect Roles
             </div>
             
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-slate-100 via-indigo-200 to-indigo-400 bg-clip-text text-transparent py-2 leading-tight">
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-indigo-950 to-indigo-600 dark:from-slate-100 dark:via-indigo-200 dark:to-indigo-400 bg-clip-text text-transparent py-2 leading-tight">
               {resumeData.name}
             </h1>
             
-            <h2 className="text-lg sm:text-2xl text-slate-400 font-medium tracking-wide">
+            <h2 className="text-lg sm:text-2xl text-slate-600 dark:text-slate-400 font-medium tracking-wide">
               {resumeData.title}
             </h2>
             
-            <p className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-3xl">
+            <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-3xl">
               {resumeData.objective}
             </p>
 
             {/* Quick Contacts */}
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4 text-sm text-slate-300">
-              <a href={`mailto:${resumeData.contact.email}`} className="flex items-center gap-2 hover:text-indigo-400 transition-colors py-1.5 px-3 bg-slate-900 border border-slate-800 rounded-lg">
-                <Mail size={16} className="text-indigo-400" />
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4 text-sm text-slate-700 dark:text-slate-300">
+              <a href={`mailto:${resumeData.contact.email}`} className="flex items-center gap-2 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-1.5 px-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-sm">
+                <Mail size={16} className="text-indigo-600 dark:text-indigo-400" />
                 <span>{resumeData.contact.email}</span>
               </a>
-              <a href={resumeData.contact.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-indigo-400 transition-colors py-1.5 px-3 bg-slate-900 border border-slate-800 rounded-lg">
-                <Linkedin size={16} className="text-indigo-400" />
+              <a href={resumeData.contact.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-1.5 px-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-sm">
+                <Linkedin size={16} className="text-indigo-600 dark:text-indigo-400" />
                 <span>LinkedIn Profile</span>
               </a>
-              <div className="flex items-center gap-2 py-1.5 px-3 bg-slate-900 border border-slate-800 rounded-lg text-slate-400">
-                <Phone size={16} className="text-indigo-400" />
+              <div className="flex items-center gap-2 py-1.5 px-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-500 dark:text-slate-400 shadow-sm">
+                <Phone size={16} className="text-indigo-600 dark:text-indigo-400" />
                 <span>{resumeData.contact.phones[0]}</span>
               </div>
             </div>
@@ -275,17 +295,17 @@ export default function App() {
               {/* Decorative dynamic glow backdrop */}
               <div className={`absolute -inset-1 bg-gradient-to-r ${highlightCards[activeCardIndex].color} rounded-2xl blur opacity-25 group-hover:opacity-40 transition-all duration-700`}></div>
               
-              <div className={`relative w-64 h-64 bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between items-center text-center shadow-2xl transition-all duration-300 transform ${
+              <div className={`relative w-64 h-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between items-center text-center shadow-2xl transition-all duration-300 transform ${
                 cardVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
               }`}>
                 {/* Active Card Icon */}
-                <div className="p-4 bg-indigo-500/10 rounded-full text-indigo-400 mt-2 animate-bounce">
+                <div className="p-4 bg-indigo-500/10 rounded-full text-indigo-600 dark:text-indigo-400 mt-2 animate-bounce">
                   <CurrentIcon size={40} />
                 </div>
                 
                 <div className="space-y-1">
-                  <h3 className="font-bold text-slate-200 text-sm">{highlightCards[activeCardIndex].title}</h3>
-                  <p className="text-xs text-slate-400 mt-1.5 max-w-[200px] leading-relaxed">
+                  <h3 className="font-bold text-slate-800 dark:text-slate-200 text-sm">{highlightCards[activeCardIndex].title}</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 max-w-[200px] leading-relaxed">
                     {highlightCards[activeCardIndex].text}
                   </p>
                 </div>
@@ -297,15 +317,15 @@ export default function App() {
         {/* SKILLS SECTION */}
         <section id="skills" className="reveal-card space-y-6">
           <div className="flex items-center gap-3">
-            <span className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg">
+            <span className="p-2 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-lg">
               <Cpu size={20} />
             </span>
-            <h2 className="text-2xl font-bold text-slate-200 tracking-tight">Core Competencies & Stack</h2>
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 tracking-tight">Core Competencies & Stack</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-slate-900/40 border border-slate-900 p-8 rounded-2xl backdrop-blur-sm">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 p-8 rounded-2xl backdrop-blur-sm shadow-sm">
             <div className="md:col-span-4 space-y-2">
-              <h3 className="font-semibold text-slate-300 flex items-center gap-2">
-                <Terminal size={16} className="text-indigo-400" /> Technology Landscape
+              <h3 className="font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                <Terminal size={16} className="text-indigo-600 dark:text-indigo-400" /> Technology Landscape
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
                 A robust history of designing microservices, configuring high-throughput event processing pipelines, and deploying to cloud infrastructure.
@@ -315,7 +335,7 @@ export default function App() {
               {resumeData.skills.map((skill, index) => (
                 <span 
                   key={index} 
-                  className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-indigo-300 text-xs font-semibold rounded-lg border border-slate-800 hover:border-indigo-500/30 transition-all duration-300 shadow-sm"
+                  className="px-3.5 py-1.5 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-300 text-xs font-semibold rounded-lg border border-slate-200 dark:border-slate-800 hover:border-indigo-500/30 transition-all duration-300 shadow-sm"
                 >
                   {skill}
                 </span>
@@ -328,12 +348,12 @@ export default function App() {
         <section id="experience" className="reveal-card space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg">
+              <span className="p-2 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-lg">
                 <Code size={20} />
               </span>
-              <h2 className="text-2xl font-bold text-slate-200 tracking-tight">Professional History</h2>
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 tracking-tight">Professional History</h2>
             </div>
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-500">
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500">
               Click cards to reveal project contributions <TrendingUp size={12} />
             </span>
           </div>
@@ -348,21 +368,21 @@ export default function App() {
         {/* ACCOMPLISHMENTS SECTION */}
         <section id="accomplishments" className="reveal-card space-y-6">
           <div className="flex items-center gap-3">
-            <span className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg">
+            <span className="p-2 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-lg">
               <Award size={20} />
             </span>
-            <h2 className="text-2xl font-bold text-slate-200 tracking-tight">Key Accomplishments</h2>
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 tracking-tight">Key Accomplishments</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {resumeData.accomplishments.map((acc, index) => (
               <div 
                 key={index}
-                className="p-5 bg-slate-900/50 hover:bg-slate-900 border border-slate-900 hover:border-indigo-500/20 rounded-xl transition-all duration-300 flex items-start gap-4"
+                className="p-5 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-900 hover:border-indigo-500/20 rounded-xl transition-all duration-300 flex items-start gap-4 shadow-sm"
               >
-                <span className="mt-1 inline-flex p-1.5 bg-indigo-500/10 text-indigo-400 rounded">
+                <span className="mt-1 inline-flex p-1.5 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded">
                   <Sparkles size={14} />
                 </span>
-                <p className="text-sm text-slate-400 leading-relaxed">{acc}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{acc}</p>
               </div>
             ))}
           </div>
@@ -371,17 +391,17 @@ export default function App() {
         {/* EDUCATION SECTION */}
         <section id="education" className="reveal-card space-y-6">
           <div className="flex items-center gap-3">
-            <span className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg">
+            <span className="p-2 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-lg">
               <BookOpen size={20} />
             </span>
-            <h2 className="text-2xl font-bold text-slate-200 tracking-tight">Education</h2>
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 tracking-tight">Education</h2>
           </div>
-          <div className="p-6 bg-slate-900/40 border border-slate-900 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="p-6 bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
             <div>
-              <h3 className="text-lg font-bold text-slate-200">{resumeData.education.degree}</h3>
-              <p className="text-sm text-slate-400 mt-1">{resumeData.education.school}</p>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-200">{resumeData.education.degree}</h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{resumeData.education.school}</p>
             </div>
-            <span className="text-xs font-semibold px-3 py-1 bg-slate-800 text-slate-400 rounded-full border border-slate-700/50">
+            <span className="text-xs font-semibold px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full border border-slate-200 dark:border-slate-700/50">
               {resumeData.education.duration}
             </span>
           </div>
@@ -390,7 +410,7 @@ export default function App() {
       </main>
 
       {/* FOOTER */}
-      <footer className="border-t border-slate-900 py-8 bg-slate-950 mt-16 text-center text-xs text-slate-500 relative z-25">
+      <footer className="border-t border-slate-200 dark:border-slate-900 py-8 bg-white dark:bg-slate-950 mt-16 text-center text-xs text-slate-500 relative z-25 transition-colors duration-300">
         <p>© {new Date().getFullYear()} {resumeData.name}. All rights reserved.</p>
         <p className="mt-1">Crafted with React, Tailwind CSS, & Custom Canvas Particles.</p>
       </footer>
